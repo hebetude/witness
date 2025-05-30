@@ -20,8 +20,10 @@ const MainMap = () => {
     const mapInstanceRef = useRef(null);
     const eventMarkersRef = useRef([]);
     const labelsRef = useRef([]);
+    const [, forceUpdate] = useState({});
 
     useEffect(() => {
+        // TODO: Have to change this so that the years are based on the earliest and last events we have
         const data = generateHistoricalTimeline(2000, 2003); 
         setTimelineData(data);
     }, []);
@@ -42,9 +44,9 @@ const MainMap = () => {
 
             const map = L.map(mapRef.current, {
                 center: [31.7, 35.2],
-                zoom: 6,
-                minZoom: 5,
-                maxZoom: 10,
+                zoom: 10,
+                minZoom: 9,
+                maxZoom: 14,
                 zoomControl: false,
             });
 
@@ -90,6 +92,14 @@ const MainMap = () => {
             });
 
             map.on('zoomend', updateLabelVisibility);
+            map.on('move', () => {
+                // Force re-render of contributions when map moves
+                forceUpdate({});
+            });
+            map.on('moveend', () => {
+                // Force re-render of contributions when map stops moving
+                forceUpdate({});
+            });
             updateLabelVisibility();
 
             mapInstanceRef.current = map;
@@ -127,7 +137,12 @@ const MainMap = () => {
                 zIndexOffset: 100,
             }).addTo(mapInstanceRef.current);
 
-            marker.on('click', () => setSelectedEvent(event));
+            marker.on('click', () => {
+                console.log('Event clicked:', event);
+                console.log('Event contributions:', event.contributions);
+                setSelectedEvent(event);
+            });
+
             eventMarkersRef.current.push(marker);
         });
     }, [currentYearIndex, timelineData]);
@@ -161,8 +176,8 @@ const MainMap = () => {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#3E2A1F' }}>
                                 <MapPin size={20} />
                                 <div>
-                                    <div style={{ fontWeight: 'bold' }}>You are witnessing from:</div>
-                                    <div>{timelineData.witnessLocation.name}</div>
+                                    <div style={{ fontWeight: 'bold' }}>You witness these events from </div>
+                                    <div>{timelineData.povLocation.name}</div>
                                 </div>
                             </div>
                         </RoughBox>
@@ -186,6 +201,9 @@ const MainMap = () => {
                                             <div style={{ flex: 1 }}>
                                                 <div style={{ fontWeight: 'bold', color: '#3E2A1F' }}>
                                                     {event.title}
+                                                </div>
+                                                <div style={{ fontSize: '14px', color: '#4A3A28', margin: '4px 0' }}>
+                                                    {event.description}
                                                 </div>
                                                 <div style={{ fontSize: '12px', color: '#6B5423' }}>
                                                     {event.location.name} • {event.distance}km away
@@ -249,27 +267,41 @@ const MainMap = () => {
                     </div>
 
                     {/* Selected Event with Floating Contributions */}
-                    {selectedEvent && (
-                        <div style={{ position: 'absolute', width: '100%', height: '100%', zIndex: 50, pointerEvents: 'none' }}>
-                            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                    {/* Selected Event with Floating Contributions */}
+                    {selectedEvent && mapInstanceRef.current && (() => {
+                        const eventLatLng = L.latLng(selectedEvent.location.lat, selectedEvent.location.lng);
+                        const eventPoint = mapInstanceRef.current.latLngToContainerPoint(eventLatLng);
+                        
+                        return (
+                            <div style={{ 
+                                position: 'absolute', 
+                                top: 0, 
+                                left: 0, 
+                                width: '100%', 
+                                height: '100%', 
+                                pointerEvents: 'none',
+                                zIndex: 50
+                            }}>
                                 {selectedEvent.contributions.map((contrib, index) => {
                                     const angle = (index / selectedEvent.contributions.length) * Math.PI * 2;
-                                    const distance = 150 + Math.random() * 50;
-
+                                    
                                     return (
                                         <div key={contrib.id} style={{ pointerEvents: 'auto' }}>
                                             <FloatingContribution
                                                 contribution={contrib}
                                                 angle={angle}
-                                                distance={distance}
+                                                distance={120}
+                                                centerX={eventPoint.x}
+                                                centerY={eventPoint.y}
+                                                index={index}
                                                 onClick={setSelectedContribution}
                                             />
                                         </div>
                                     );
                                 })}
                             </div>
-                        </div>
-                    )}
+                        );
+                    })()}
 
                     {/* Contribution Detail Modal */}
                     {selectedContribution && (
