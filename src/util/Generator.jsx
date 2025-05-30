@@ -24,13 +24,12 @@ function selectRandom(array, count) {
 function selectResponsesByDistance(event, povLocation, contributions) {
   const distance = calculateDistance(event.location, povLocation);
 
-  // Filter by distance
+  // Same question as below here. Why are we filtering by distance? Does it make sense?
   const relevant = contributions.filter(contrib => {
     const [minDist, maxDist] = contrib.distance_relevance;
     return distance >= minDist && distance <= maxDist;
   });
 
-  // Select random subset
   const selectedCount = Math.floor(Math.random() * 3) + 3;
   return selectRandom(relevant, selectedCount);
 }
@@ -40,11 +39,12 @@ function selectPOVLocation() {
   return cities[Math.floor(Math.random() * cities.length)];
 }
 
+// Should consider whether to allow quiet years at all.
+// Instead of 
 function generateHistoricalTimeline(startYear, endYear) {
   const timeline = [];
   const povLocation = selectPOVLocation();
 
-  // Generate events for each year
   for (let year = startYear; year <= endYear; year++) {
     const yearEvents = historicalEventsData[year.toString()] || [];
 
@@ -60,18 +60,20 @@ function generateHistoricalTimeline(startYear, endYear) {
     }
 
     // Always include major events
+    // If we have a lot of major events, maybe we'd also want to randomly pick some subset of them
     const majorEvents = yearEvents.filter(e => e.priority === 'major');
     const minorEvents = yearEvents.filter(e => e.priority === 'minor');
 
     // Randomly select 1-2 minor events
     const selectedMinor = selectRandom(minorEvents, Math.floor(Math.random() * 2) + 1);
 
-    // Combine and process events
     const selectedEvents = [...majorEvents, ...selectedMinor].map(event => {
-      // Get contributions for this event
       const eventContributions = contributionsData[event.id] || [];
 
-      // Select visible contributions based on distance
+      // The idea is that contributions can be specific to where some event is being observed from,
+      // but is this meaningful or useful at all? All of the contributions I can think of for now are 
+      // agnostic of location. Filtering out contributions based on distance also assumes that there will
+      // be enough contributions to be picky about
       const visibleContributions = selectResponsesByDistance(
         event,
         povLocation,
@@ -82,7 +84,7 @@ function generateHistoricalTimeline(startYear, endYear) {
 
       return {
         ...event,
-        year: year, // Add the year property
+        year: year,
         contributions: visibleContributions,
         distance: Math.round(calculateDistance(event.location, povLocation))
       };
@@ -104,7 +106,7 @@ function generateHistoricalTimeline(startYear, endYear) {
   };
 }
 
-// Function to get event icon (emoji or custom image)
+// Currently using emojis, but can use custom icons if I'm able
 function getEventIcon(eventType) {
   const config = eventTypeConfig[eventType];
   if (!config) return { emoji: "❓", color: "#666666" };
@@ -116,7 +118,6 @@ function getEventIcon(eventType) {
   };
 }
 
-// Export functions
 export {
   generateHistoricalTimeline,
   getEventIcon,

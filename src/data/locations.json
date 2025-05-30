@@ -1,18 +1,842 @@
 [
-    {
-        "name": "Jerusalem",
-        "lat": 31.7763215,
-        "lng": 35.2247968,
-        "type": "city",
-        "tier": 1
-    },
-
-    {
-        "name": "Tulkarm",
-        "lat": 32.310381508,
-        "lng": 35.028569649,
-        "type": "city",
-        "tier": 2
-    }
-
+  {
+    "name": "Jerusalem",
+    "lat": 31.76904,
+    "lng": 35.21633,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Modi‘in Makkabbim Re‘ut",
+    "lat": 31.89385,
+    "lng": 35.01504,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Zikhron Ya‘aqov",
+    "lat": 32.56645,
+    "lng": 34.95628,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Safed",
+    "lat": 32.96465,
+    "lng": 35.496,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Yoqne‘am ‘Illit",
+    "lat": 32.65385,
+    "lng": 35.10382,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Yehud",
+    "lat": 32.03317,
+    "lng": 34.89091,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Yavné",
+    "lat": 31.87808,
+    "lng": 34.73983,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Jaffa",
+    "lat": 32.05043,
+    "lng": 34.75224,
+    "type": "settlement",
+    "tier": 2
+  },
+  {
+    "name": "Umm el Faḥm",
+    "lat": 32.51725,
+    "lng": 35.15349,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Tirat Karmel",
+    "lat": 32.76021,
+    "lng": 34.97183,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Tiberias",
+    "lat": 32.79221,
+    "lng": 35.53124,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Tel Aviv",
+    "lat": 32.08088,
+    "lng": 34.78057,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "maalot Tarshīhā",
+    "lat": 33.01667,
+    "lng": 35.26667,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Tamra",
+    "lat": 32.85301,
+    "lng": 35.1987,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Shefar‘am",
+    "lat": 32.80583,
+    "lng": 35.16895,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Sderot",
+    "lat": 31.525,
+    "lng": 34.59693,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Sakhnīn",
+    "lat": 32.86422,
+    "lng": 35.29707,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Rosh Ha‘Ayin",
+    "lat": 32.09556,
+    "lng": 34.95664,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Rishon LeTsiyyon",
+    "lat": 31.97102,
+    "lng": 34.78939,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Reẖovot",
+    "lat": 31.89421,
+    "lng": 34.81199,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Ramla",
+    "lat": 31.92624,
+    "lng": 34.8635,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Ramat HaSharon",
+    "lat": 32.14613,
+    "lng": 34.8394,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ramat Gan",
+    "lat": 32.08227,
+    "lng": 34.81065,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Ra'anana",
+    "lat": 32.1836,
+    "lng": 34.87386,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qiryat Yam",
+    "lat": 32.84966,
+    "lng": 35.06973,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qiryat Shmona",
+    "lat": 33.20733,
+    "lng": 35.57212,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qiryat Motsqin",
+    "lat": 32.83706,
+    "lng": 35.0776,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qiryat Mal’akhi",
+    "lat": 31.72888,
+    "lng": 34.74632,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kiryat Gat",
+    "lat": 31.60998,
+    "lng": 34.76422,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qiryat Bialik",
+    "lat": 32.8275,
+    "lng": 35.08583,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qiryat Ata",
+    "lat": 32.81149,
+    "lng": 35.11323,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Petaẖ Tiqva",
+    "lat": 32.08707,
+    "lng": 34.88747,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Or Yehuda",
+    "lat": 32.02923,
+    "lng": 34.85788,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ofaqim",
+    "lat": 31.3141,
+    "lng": 34.62025,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Netivot",
+    "lat": 31.42305,
+    "lng": 34.58911,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Netanya",
+    "lat": 32.33291,
+    "lng": 34.85992,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Ness Ziona",
+    "lat": 31.92933,
+    "lng": 34.79868,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Nesher",
+    "lat": 32.76622,
+    "lng": 35.04425,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Naẕerat ‘Illit",
+    "lat": 32.70816,
+    "lng": 35.32469,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Nazareth",
+    "lat": 32.70087,
+    "lng": 35.29719,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Nahariyya",
+    "lat": 33.00892,
+    "lng": 35.09814,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Migdal Ha‘Emeq",
+    "lat": 32.67597,
+    "lng": 35.23986,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Mevasseret Tsiyyon",
+    "lat": 31.80186,
+    "lng": 35.15072,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Maghār",
+    "lat": 32.88984,
+    "lng": 35.40703,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Lod",
+    "lat": 31.9467,
+    "lng": 34.8903,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kfar Yona",
+    "lat": 32.31669,
+    "lng": 34.93507,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kfar Saba",
+    "lat": 32.175,
+    "lng": 34.90694,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Karmi’el",
+    "lat": 32.91708,
+    "lng": 35.30501,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kafr Qāsim",
+    "lat": 32.11406,
+    "lng": 34.97624,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kafr Mandā",
+    "lat": 32.81034,
+    "lng": 35.26009,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kafr Kannā",
+    "lat": 32.7466,
+    "lng": 35.34242,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Judeida Makr",
+    "lat": 32.9282,
+    "lng": 35.15705,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "H̱olon",
+    "lat": 32.01034,
+    "lng": 34.77918,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Hod HaSharon",
+    "lat": 32.15934,
+    "lng": 34.8932,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Herzliya",
+    "lat": 32.16627,
+    "lng": 34.82536,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Haifa",
+    "lat": 32.81303,
+    "lng": 34.99928,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Hadera",
+    "lat": 32.44192,
+    "lng": 34.9039,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Giv'at Shmuel",
+    "lat": 32.07817,
+    "lng": 34.84858,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Givatayim",
+    "lat": 32.07225,
+    "lng": 34.81253,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Gedera",
+    "lat": 31.81456,
+    "lng": 34.77998,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Gan Yavne",
+    "lat": 31.78737,
+    "lng": 34.70659,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ganei Tikva",
+    "lat": 32.05971,
+    "lng": 34.8732,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Eṭ Ṭīra",
+    "lat": 32.2341,
+    "lng": 34.95023,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Eṭ Ṭaiyiba",
+    "lat": 32.26616,
+    "lng": 35.00893,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Eilat",
+    "lat": 29.55805,
+    "lng": 34.94821,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Dimona",
+    "lat": 31.07079,
+    "lng": 35.03269,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Daliyat al Karmel",
+    "lat": 32.69383,
+    "lng": 35.04686,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Bet Shemesh",
+    "lat": 31.73072,
+    "lng": 34.99293,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Bnei Brak",
+    "lat": 32.08074,
+    "lng": 34.8338,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Be’er Ya‘aqov",
+    "lat": 31.93864,
+    "lng": 34.83749,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Beersheba",
+    "lat": 31.25181,
+    "lng": 34.7913,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Bat Yam",
+    "lat": 32.02379,
+    "lng": 34.75185,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Bāqa el Gharbīya",
+    "lat": 32.41806,
+    "lng": 35.04312,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ashkelon",
+    "lat": 31.66926,
+    "lng": 34.57149,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Ashdod",
+    "lat": 31.79213,
+    "lng": 34.64966,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "‘Ar‘ara",
+    "lat": 32.49553,
+    "lng": 35.09411,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Arad",
+    "lat": 31.25882,
+    "lng": 35.21282,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Acre",
+    "lat": 32.92814,
+    "lng": 35.07647,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Afula",
+    "lat": 32.60907,
+    "lng": 35.2892,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "West Jerusalem",
+    "lat": 31.78199,
+    "lng": 35.21961,
+    "type": "settlement",
+    "tier": 2
+  },
+  {
+    "name": "Modiin Ilit",
+    "lat": 31.93221,
+    "lng": 35.04416,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ariel",
+    "lat": 32.1065,
+    "lng": 35.18449,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Tel Sheva‘",
+    "lat": 31.24864,
+    "lng": 34.86007,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "H̱ura",
+    "lat": 31.30084,
+    "lng": 34.93606,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kuseifa",
+    "lat": 31.24535,
+    "lng": 35.0931,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Shoham",
+    "lat": 31.99866,
+    "lng": 34.94559,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "El‘ad",
+    "lat": 32.04984,
+    "lng": 34.95382,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Yehud-Monosson",
+    "lat": 32.0284,
+    "lng": 34.8796,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kadima Zoran",
+    "lat": 32.27782,
+    "lng": 34.9194,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Kiryat Ono",
+    "lat": 32.06124,
+    "lng": 34.85618,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Rafaḩ",
+    "lat": 31.29722,
+    "lng": 34.24357,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "An Nuşayrāt",
+    "lat": 31.44861,
+    "lng": 34.3925,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Khān Yūnis",
+    "lat": 31.34018,
+    "lng": 34.30627,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Jabālyā",
+    "lat": 31.5272,
+    "lng": 34.48347,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Gaza",
+    "lat": 31.50161,
+    "lng": 34.46672,
+    "type": "city",
+    "tier": 1
+  },
+  {
+    "name": "Dayr al Balaḩ",
+    "lat": 31.41834,
+    "lng": 34.34933,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Bayt Lāhyā",
+    "lat": 31.5464,
+    "lng": 34.49514,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Bayt Ḩānūn",
+    "lat": 31.5353,
+    "lng": 34.53579,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Banī Suhaylā",
+    "lat": 31.34337,
+    "lng": 34.32337,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Al Burayj",
+    "lat": 31.43944,
+    "lng": 34.40306,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Yaţţā",
+    "lat": 31.4459,
+    "lng": 35.09443,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ţūlkarm",
+    "lat": 32.31156,
+    "lng": 35.0269,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Surif City",
+    "lat": 31.65078,
+    "lng": 35.06439,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ramallah",
+    "lat": 31.89964,
+    "lng": 35.20422,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Qalqīlyah",
+    "lat": 32.18966,
+    "lng": 34.97063,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Nablus",
+    "lat": 32.22111,
+    "lng": 35.25444,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Ma‘ale Adummim",
+    "lat": 31.7774,
+    "lng": 35.29875,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Janīn",
+    "lat": 32.45943,
+    "lng": 35.30086,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ḩalḩūl",
+    "lat": 31.58029,
+    "lng": 35.10178,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Dūrā",
+    "lat": 31.50777,
+    "lng": 35.02929,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Bethlehem",
+    "lat": 31.70487,
+    "lng": 35.20376,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Bayt Ḩanīnā",
+    "lat": 31.82999,
+    "lng": 35.22539,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Battir",
+    "lat": 31.7,
+    "lng": 35.11667,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Az̧ Z̧āhirīyah",
+    "lat": 31.40967,
+    "lng": 34.97329,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "‘Aţārūt",
+    "lat": 31.86667,
+    "lng": 35.21667,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Ar Rām wa Ḑāḩiyat al Barīd",
+    "lat": 31.84945,
+    "lng": 35.2342,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Hebron",
+    "lat": 31.52935,
+    "lng": 35.0938,
+    "type": "city",
+    "tier": 2
+  },
+  {
+    "name": "Al Bīrah",
+    "lat": 31.91001,
+    "lng": 35.21645,
+    "type": "city",
+    "tier": 3
+  },
+  {
+    "name": "Old City",
+    "lat": 31.77667,
+    "lng": 35.23417,
+    "type": "settlement",
+    "tier": 3
+  },
+  {
+    "name": "East Jerusalem",
+    "lat": 31.78336,
+    "lng": 35.23388,
+    "type": "settlement",
+    "tier": 2
+  }
 ]

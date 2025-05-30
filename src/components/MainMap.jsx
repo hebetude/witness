@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 
 const cityLabelsData = locationsData;
 
+// TODO: Remove log statements, I am debugging like a child
 const MainMap = () => {
     const [timelineData, setTimelineData] = useState(null);
     const [currentYearIndex, setCurrentYearIndex] = useState(0);
@@ -24,7 +25,7 @@ const MainMap = () => {
 
     useEffect(() => {
         // TODO: Have to change this so that the years are based on the earliest and last events we have
-        const data = generateHistoricalTimeline(2000, 2003); 
+        const data = generateHistoricalTimeline(2000, 2003);
         setTimelineData(data);
     }, []);
 
@@ -35,6 +36,7 @@ const MainMap = () => {
         if (!mapInstanceRef.current && mapRef.current) {
             console.log('Initializing map...');
 
+            // Supposedly a known Leaflet issue. Sam Altman told me to do this.
             delete L.Icon.Default.prototype._getIconUrl;
             L.Icon.Default.mergeOptions({
                 iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
@@ -42,10 +44,12 @@ const MainMap = () => {
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
             });
 
+            // I'm limiting zooming out.
+            // TODO: Maybe consider panning to events as they pop up.
             const map = L.map(mapRef.current, {
                 center: [31.7, 35.2],
-                zoom: 10,
-                minZoom: 9,
+                zoom: 9,
+                minZoom: 5,
                 maxZoom: 14,
                 zoomControl: false,
             });
@@ -66,7 +70,14 @@ const MainMap = () => {
                 const zoom = map.getZoom();
                 labelsRef.current.forEach((label, index) => {
                     const city = cityLabelsData[index];
-                    const minZoom = city.tier === 1 ? 5 : city.tier === 2 ? 7 : 8;
+                    let minZoom;
+                    if (city.tier === 1) {
+                        minZoom = 9;
+                    } else if (city.tier === 2) {
+                        minZoom = 10;
+                    } else {
+                        minZoom = 12;
+                    }
                     label.setOpacity(zoom >= minZoom ? 1 : 0);
                 });
             };
@@ -91,6 +102,8 @@ const MainMap = () => {
                 labelsRef.current.push(labelMarker);
             });
 
+            // This bottom part is not me. The React FAQs actively recommend against doing this and intuitively, it also looks like a
+            // terrible idea, but ¯\_(ツ)_/¯
             map.on('zoomend', updateLabelVisibility);
             map.on('move', () => {
                 // Force re-render of contributions when map moves
@@ -134,7 +147,7 @@ const MainMap = () => {
 
             const marker = L.marker([event.location.lat, event.location.lng], {
                 icon: eventIcon,
-                zIndexOffset: 100,
+                zIndexOffset: 1000,
             }).addTo(mapInstanceRef.current);
 
             marker.on('click', () => {
@@ -170,7 +183,7 @@ const MainMap = () => {
                 </div>
             ) : (
                 <>
-                    {/* Perspective Indicator */}
+                    {/* Perspective Indicator - Is there actually a point to this? */}
                     <div style={styles.perspectiveIndicator}>
                         <RoughBox>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#3E2A1F' }}>
@@ -267,24 +280,23 @@ const MainMap = () => {
                     </div>
 
                     {/* Selected Event with Floating Contributions */}
-                    {/* Selected Event with Floating Contributions */}
                     {selectedEvent && mapInstanceRef.current && (() => {
                         const eventLatLng = L.latLng(selectedEvent.location.lat, selectedEvent.location.lng);
                         const eventPoint = mapInstanceRef.current.latLngToContainerPoint(eventLatLng);
-                        
+
                         return (
-                            <div style={{ 
-                                position: 'absolute', 
-                                top: 0, 
-                                left: 0, 
-                                width: '100%', 
-                                height: '100%', 
+                            <div style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
                                 pointerEvents: 'none',
                                 zIndex: 50
                             }}>
                                 {selectedEvent.contributions.map((contrib, index) => {
                                     const angle = (index / selectedEvent.contributions.length) * Math.PI * 2;
-                                    
+
                                     return (
                                         <div key={contrib.id} style={{ pointerEvents: 'auto' }}>
                                             <FloatingContribution
