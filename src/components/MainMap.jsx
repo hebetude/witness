@@ -139,10 +139,11 @@ const MainMap = () => {
 
             const eventIcon = L.divIcon({
                 className: 'event-marker',
-                html: `<div class="event-icon" style="background-color: ${color}; opacity: ${event.year === currentYear ? 1 : 0.6
-                    }">${emoji}</div>`,
-                iconSize: [30, 30],
-                iconAnchor: [15, 15],
+                html: `<div class="event-icon" style="opacity: ${event.year === currentYear ? 1 : 0.6};">
+                    <span>${emoji}</span>
+                </div>`,
+                iconSize: [36, 36],
+                iconAnchor: [18, 18],
             });
 
             const marker = L.marker([event.location.lat, event.location.lng], {
@@ -345,12 +346,18 @@ const MainMap = () => {
                                         {selectedContribution.content}
                                     </div>
 
-                                    {selectedContribution.media_type === 'image' && (
-                                        <div style={{ marginBottom: '16px' }}>
+                                    {selectedContribution.media && selectedContribution.media.type === 'image' && (
+                                        <div style={{ marginBottom: '16px', textAlign: 'center' }}>
                                             <img
-                                                src={selectedContribution.content}
+                                                src={selectedContribution.media.url}
                                                 alt="Contribution artwork"
-                                                style={{ maxWidth: '100%', height: 'auto', borderRadius: '4px' }}
+                                                style={{ 
+                                                    maxWidth: '100%', 
+                                                    maxHeight: '400px',
+                                                    height: 'auto', 
+                                                    borderRadius: '4px',
+                                                    objectFit: 'contain'
+                                                }}
                                             />
                                         </div>
                                     )}

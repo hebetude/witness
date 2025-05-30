@@ -22,5 +22,22 @@
                 1000
             ]
         }
+    ],
+    "one_year_of_the_second_intifada": [
+        {
+            "id": "contrib_003",
+            "type": "personal",
+            "content": "I don't know what to write here.",
+            "author": "Anonymous",
+            "media": {
+                "type": "image",
+                "url": "https://upload.wikimedia.org/wikipedia/en/b/bf/Faris_odeh03a.jpg",
+                "caption": "A child fights a tank."
+            },
+            "distance_relevance": [
+                0,
+                1000
+            ]
+        }
     ]
 }

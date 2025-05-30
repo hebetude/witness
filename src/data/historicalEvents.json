@@ -8,7 +8,19 @@
       "date": "2000-09-28",
       "title": "Ariel Sharon visits the Temple Mount",
       "description": "Against Palestinian warnings, Ariel Sharon visits the Temple Mount surrounded by a large police escort. Riots would follow, more than two dozen will be injured in the immediate aftermath. This event would trigger the Second Intifada.",
-      "casualties": 27
+      "casualties": 0
+    }
+  ],
+  "2001": [
+    {
+      "id": "one_year_of_the_second_intifada",
+      "type": "violence",
+      "priority": "major",
+      "location": { "name": "Gaza", "lat": 31.502115288804916, "lng":34.46678011769714 },
+      "date": "2002-04-25",
+      "title": "One full year of the Intifada",
+      "description": "534-737 Palestinians and 117-179 Israelis have been killed; 10,596-29,000 Palestinians and 1,800-1,878 Israelis have been injured. At least 328 houses have been demolished; 25,000 trees uprooted; and more than 2000 hectares bulldozed.",
+      "casualties": 0
     }
   ],
   "2002": [

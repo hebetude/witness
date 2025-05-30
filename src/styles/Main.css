@@ -27,6 +27,8 @@
     border: 2px solid #F5E6D3;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    filter: blur(0.5px) saturate(0.8) contrast(0.9);
+    opacity: 0.9;
 }
 
 .event-icon:hover {
