@@ -1,0 +1,26 @@
+{
+    "separation_wall_approved": [
+        {
+            "id": "contrib_001",
+            "type": "personal",
+            "content": "The children asked what the walls were protecting us from.",
+            "author": "Anonymous",
+            "distance_relevance": [
+                0,
+                100
+            ]
+        }
+    ],
+    "ariel_sharon_visit": [
+        {
+            "id": "contrib_002",
+            "type": "personal",
+            "content": "A war criminal, surrounded by a small army, walks in this holy place. He will become prime minister in a few months time.",
+            "author": "Anonymous",
+            "distance_relevance": [
+                0,
+                100
+            ]
+        }
+    ]
+}

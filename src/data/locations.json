@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Jerusalem",
+        "lat": 31.7763215,
+        "lng": 35.2247968,
+        "type": "city",
+        "tier": 1
+    },
+
+    {
+        "name": "Tulkarm",
+        "lat": 32.310381508,
+        "lng": 35.028569649,
+        "type": "city",
+        "tier": 1
+    }
+
+]

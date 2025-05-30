@@ -16,23 +16,32 @@ const MainMap = () => {
     const [currentYearIndex, setCurrentYearIndex] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [selectedContribution, setSelectedContribution] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
     const eventMarkersRef = useRef([]);
     const labelsRef = useRef([]);
 
-    // Initialize timeline on mount
     useEffect(() => {
-        const data = generateHistoricalTimeline(2000, 2010); // Limited years for demo
+        const data = generateHistoricalTimeline(2000, 2003); 
         setTimelineData(data);
     }, []);
 
-    // Initialize map
     useEffect(() => {
+        console.log('Map initialization useEffect - mapRef.current:', mapRef.current);
+        console.log('Map initialization useEffect - timelineData:', !!timelineData);
+
         if (!mapInstanceRef.current && mapRef.current) {
+            console.log('Initializing map...');
+
+            delete L.Icon.Default.prototype._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+                iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+            });
+
             const map = L.map(mapRef.current, {
-                center: [52.0, 19.0],
+                center: [31.7, 35.2],
                 zoom: 6,
                 minZoom: 5,
                 maxZoom: 10,
@@ -41,7 +50,7 @@ const MainMap = () => {
 
             console.log("MAP LOADING");
 
-            // Add watercolor tiles
+            // Watercolor tiles
             L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, hosted by <a href="https://stadiamaps.com/">Stadia Maps</a>',
                 className: 'sepia-filter',
@@ -51,7 +60,6 @@ const MainMap = () => {
                 position: 'bottomright'
             }).addTo(map);
 
-            // Add city labels
             const updateLabelVisibility = () => {
                 const zoom = map.getZoom();
                 labelsRef.current.forEach((label, index) => {
@@ -85,28 +93,27 @@ const MainMap = () => {
             updateLabelVisibility();
 
             mapInstanceRef.current = map;
-        }
-    }, []);
 
-    // Update event markers when year changes
+            setTimeout(() => map.invalidateSize(), 100);
+        }
+    }, [timelineData]);
+
     useEffect(() => {
         if (!mapInstanceRef.current || !timelineData) return;
 
-        // Clear existing event markers
         eventMarkersRef.current.forEach(marker => marker.remove());
         eventMarkersRef.current = [];
 
-        // Get all events up to current year
         const visibleEvents = [];
         for (let i = 0; i <= currentYearIndex; i++) {
             visibleEvents.push(...timelineData.timeline[i].events);
         }
 
-        // Add markers for all visible events
+        const currentYear = timelineData.timeline[currentYearIndex].year;
+
         visibleEvents.forEach(event => {
             const { emoji, color } = getEventIcon(event.type);
 
-            // Create custom icon
             const eventIcon = L.divIcon({
                 className: 'event-marker',
                 html: `<div class="event-icon" style="background-color: ${color}; opacity: ${event.year === currentYear ? 1 : 0.6
@@ -125,206 +132,194 @@ const MainMap = () => {
         });
     }, [currentYearIndex, timelineData]);
 
-    // Auto-play functionality
-    useEffect(() => {
-        if (!isPlaying || !timelineData) return;
-
-        const interval = setInterval(() => {
-            setCurrentYearIndex(prev => {
-                if (prev >= timelineData.timeline.length - 1) {
-                    setIsPlaying(false);
-                    return prev;
-                }
-                return prev + 1;
-            });
-        }, 3000);
-
-        return () => clearInterval(interval);
-    }, [isPlaying, timelineData]);
-
-    if (!timelineData) return <div>Loading...</div>;
-
-    const currentYear = timelineData.timeline[currentYearIndex].year;
-    const currentYearData = timelineData.timeline[currentYearIndex];
-    const witnessLocation = timelineData.witnessLocation;
-
-    
+    console.log('Component render - timelineData:', !!timelineData);
+    console.log('Component render - mapRef.current:', mapRef.current);
 
     return (
         <div style={styles.container}>
             <div ref={mapRef} style={styles.mapContainer} />
 
-            {/* Perspective Indicator */}
-            <div style={styles.perspectiveIndicator}>
-                <RoughBox>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#3E2A1F' }}>
-                        <MapPin size={20} />
-                        <div>
-                            <div style={{ fontWeight: 'bold' }}>You are witnessing from:</div>
-                            <div>{witnessLocation.name}</div>
-                        </div>
-                    </div>
-                </RoughBox>
-            </div>
-
-            {/* Event Panel */}
-            {currentYearData.events.length > 0 && (
-                <div style={styles.eventPanel}>
-                    <RoughBox>
-                        <h3 style={{ marginTop: 0, marginBottom: '16px', color: '#3E2A1F' }}>
-                            {currentYear} Events
-                        </h3>
-                        {currentYearData.events.map(event => (
-                            <div
-                                key={event.id}
-                                style={styles.eventItem}
-                                onClick={() => setSelectedEvent(event)}
-                            >
-                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                                    <span style={{ fontSize: '20px' }}>{getEventIcon(event.type).emoji}</span>
-                                    <div style={{ flex: 1 }}>
-                                        <div style={{ fontWeight: 'bold', color: '#3E2A1F' }}>
-                                            {event.title}
-                                        </div>
-                                        <div style={{ fontSize: '12px', color: '#6B5423' }}>
-                                            {event.location.name} • {event.distance}km away
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </RoughBox>
+            {!timelineData ? (
+                <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: '24px',
+                    color: '#3E2A1F',
+                    backgroundColor: 'rgba(245, 230, 211, 0.9)',
+                    padding: '20px',
+                    borderRadius: '8px'
+                }}>
+                    Loading...
                 </div>
-            )}
-
-            {/* Timeline Controls */}
-            <div style={styles.timelineControls}>
-                <RoughBox>
-                    <div style={styles.yearDisplay}>{currentYear}</div>
-
-                    <div
-                        style={styles.timeline}
-                        onClick={(e) => {
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const percentage = x / rect.width;
-                            const newIndex = Math.floor(percentage * timelineData.timeline.length);
-                            setCurrentYearIndex(Math.max(0, Math.min(newIndex, timelineData.timeline.length - 1)));
-                        }}
-                    >
-                        <div
-                            style={{
-                                ...styles.timelineProgress,
-                                width: `${((currentYearIndex + 1) / timelineData.timeline.length) * 100}%`
-                            }}
-                        />
-                        {timelineData.timeline.map((yearData, index) => {
-                            if (yearData.events.length === 0) return null;
-                            return (
-                                <div
-                                    key={yearData.year}
-                                    style={{
-                                        ...styles.timelineMarker,
-                                        left: `${((index + 0.5) / timelineData.timeline.length) * 100}%`,
-                                        backgroundColor: index === currentYearIndex ? '#8B0000' : '#5C4033',
-                                    }}
-                                    title={`${yearData.year}: ${yearData.events.length} events`}
-                                />
-                            );
-                        })}
-                    </div>
-
-                    <div style={styles.playControls}>
-                        <button
-                            style={styles.controlButton}
-                            onClick={() => setIsPlaying(!isPlaying)}
-                        >
-                            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-                            {isPlaying ? 'Pause' : 'Play'}
-                        </button>
-                        <button
-                            style={styles.controlButton}
-                            onClick={() => setCurrentYearIndex(Math.min(currentYearIndex + 1, timelineData.timeline.length - 1))}
-                            disabled={currentYearIndex >= timelineData.timeline.length - 1}
-                        >
-                            Next Year
-                            <SkipForward size={20} />
-                        </button>
-                    </div>
-                </RoughBox>
-            </div>
-
-            {/* Selected Event with Floating Contributions */}
-            {selectedEvent && (
-                <div style={{ position: 'absolute', width: '100%', height: '100%', zIndex: 50, pointerEvents: 'none' }}>
-                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                        {selectedEvent.contributions.map((contrib, index) => {
-                            const angle = (index / selectedEvent.contributions.length) * Math.PI * 2;
-                            const distance = 150 + Math.random() * 50;
-
-                            return (
-                                <div key={contrib.id} style={{ pointerEvents: 'auto' }}>
-                                    <FloatingContribution
-                                        contribution={contrib}
-                                        angle={angle}
-                                        distance={distance}
-                                        onClick={setSelectedContribution}
-                                    />
+            ) : (
+                <>
+                    {/* Perspective Indicator */}
+                    <div style={styles.perspectiveIndicator}>
+                        <RoughBox>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#3E2A1F' }}>
+                                <MapPin size={20} />
+                                <div>
+                                    <div style={{ fontWeight: 'bold' }}>You are witnessing from:</div>
+                                    <div>{timelineData.witnessLocation.name}</div>
                                 </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            )}
-
-            {/* Contribution Detail Modal */}
-            {selectedContribution && (
-                <div
-                    style={styles.contributionModal}
-                    onClick={() => setSelectedContribution(null)}
-                >
-                    <div onClick={(e) => e.stopPropagation()}>
-                        <RoughBox style={styles.contributionCard}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                                <h3 style={{ margin: 0, color: '#3E2A1F' }}>
-                                    {selectedContribution.type.charAt(0).toUpperCase() + selectedContribution.type.slice(1)}
-                                </h3>
-                                <button
-                                    onClick={() => setSelectedContribution(null)}
-                                    style={{ background: 'none', border: 'none', fontSize: '24px', color: '#8B7355', cursor: 'pointer' }}
-                                >
-                                    ×
-                                </button>
-                            </div>
-
-                            <div style={{
-                                color: '#4A3A28',
-                                fontStyle: selectedContribution.type === 'poetry' ? 'italic' : 'normal',
-                                whiteSpace: 'pre-wrap',
-                                marginBottom: '16px',
-                                lineHeight: '1.6'
-                            }}>
-                                {selectedContribution.content}
-                            </div>
-
-                            {selectedContribution.media_type === 'image' && (
-                                <div style={{ marginBottom: '16px' }}>
-                                    <img
-                                        src={selectedContribution.content}
-                                        alt="Contribution artwork"
-                                        style={{ maxWidth: '100%', height: 'auto', borderRadius: '4px' }}
-                                    />
-                                </div>
-                            )}
-
-                            <div style={{ fontSize: '14px', color: '#6B5423', textAlign: 'right' }}>
-                                — {selectedContribution.author}
                             </div>
                         </RoughBox>
                     </div>
-                </div>
-            )}
 
+                    {/* Event Panel */}
+                    {timelineData.timeline[currentYearIndex].events.length > 0 && (
+                        <div style={styles.eventPanel}>
+                            <RoughBox>
+                                <h3 style={{ marginTop: 0, marginBottom: '16px', color: '#3E2A1F' }}>
+                                    {timelineData.timeline[currentYearIndex].year} Events
+                                </h3>
+                                {timelineData.timeline[currentYearIndex].events.map(event => (
+                                    <div
+                                        key={event.id}
+                                        style={styles.eventItem}
+                                        onClick={() => setSelectedEvent(event)}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                                            <span style={{ fontSize: '20px' }}>{getEventIcon(event.type).emoji}</span>
+                                            <div style={{ flex: 1 }}>
+                                                <div style={{ fontWeight: 'bold', color: '#3E2A1F' }}>
+                                                    {event.title}
+                                                </div>
+                                                <div style={{ fontSize: '12px', color: '#6B5423' }}>
+                                                    {event.location.name} • {event.distance}km away
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </RoughBox>
+                        </div>
+                    )}
+
+                    {/* Timeline Controls */}
+                    <div style={styles.timelineControls}>
+                        <RoughBox>
+                            <div style={styles.yearDisplay}>{timelineData.timeline[currentYearIndex].year}</div>
+
+                            <div
+                                style={styles.timeline}
+                                onClick={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect();
+                                    const x = e.clientX - rect.left;
+                                    const percentage = x / rect.width;
+                                    const newIndex = Math.floor(percentage * timelineData.timeline.length);
+                                    setCurrentYearIndex(Math.max(0, Math.min(newIndex, timelineData.timeline.length - 1)));
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        ...styles.timelineProgress,
+                                        width: `${((currentYearIndex + 1) / timelineData.timeline.length) * 100}%`
+                                    }}
+                                />
+                                {timelineData.timeline.map((yearData, index) => {
+                                    if (yearData.events.length === 0) return null;
+                                    return (
+                                        <div
+                                            key={yearData.year}
+                                            style={{
+                                                ...styles.timelineMarker,
+                                                left: `${((index + 0.5) / timelineData.timeline.length) * 100}%`,
+                                                backgroundColor: index === currentYearIndex ? '#8B0000' : '#5C4033',
+                                            }}
+                                            title={`${yearData.year}: ${yearData.events.length} events`}
+                                        />
+                                    );
+                                })}
+                            </div>
+
+                            <div style={styles.playControls}>
+                                <button
+                                    style={styles.controlButton}
+                                    onClick={() => setCurrentYearIndex(Math.min(currentYearIndex + 1, timelineData.timeline.length - 1))}
+                                    disabled={currentYearIndex >= timelineData.timeline.length - 1}
+                                >
+                                    Next Year
+                                    <SkipForward size={20} />
+                                </button>
+                            </div>
+                        </RoughBox>
+                    </div>
+
+                    {/* Selected Event with Floating Contributions */}
+                    {selectedEvent && (
+                        <div style={{ position: 'absolute', width: '100%', height: '100%', zIndex: 50, pointerEvents: 'none' }}>
+                            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                                {selectedEvent.contributions.map((contrib, index) => {
+                                    const angle = (index / selectedEvent.contributions.length) * Math.PI * 2;
+                                    const distance = 150 + Math.random() * 50;
+
+                                    return (
+                                        <div key={contrib.id} style={{ pointerEvents: 'auto' }}>
+                                            <FloatingContribution
+                                                contribution={contrib}
+                                                angle={angle}
+                                                distance={distance}
+                                                onClick={setSelectedContribution}
+                                            />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Contribution Detail Modal */}
+                    {selectedContribution && (
+                        <div
+                            style={styles.contributionModal}
+                            onClick={() => setSelectedContribution(null)}
+                        >
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <RoughBox style={styles.contributionCard}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                                        <h3 style={{ margin: 0, color: '#3E2A1F' }}>
+                                            {selectedContribution.type.charAt(0).toUpperCase() + selectedContribution.type.slice(1)}
+                                        </h3>
+                                        <button
+                                            onClick={() => setSelectedContribution(null)}
+                                            style={{ background: 'none', border: 'none', fontSize: '24px', color: '#8B7355', cursor: 'pointer' }}
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+
+                                    <div style={{
+                                        color: '#4A3A28',
+                                        fontStyle: selectedContribution.type === 'poetry' ? 'italic' : 'normal',
+                                        whiteSpace: 'pre-wrap',
+                                        marginBottom: '16px',
+                                        lineHeight: '1.6'
+                                    }}>
+                                        {selectedContribution.content}
+                                    </div>
+
+                                    {selectedContribution.media_type === 'image' && (
+                                        <div style={{ marginBottom: '16px' }}>
+                                            <img
+                                                src={selectedContribution.content}
+                                                alt="Contribution artwork"
+                                                style={{ maxWidth: '100%', height: 'auto', borderRadius: '4px' }}
+                                            />
+                                        </div>
+                                    )}
+
+                                    <div style={{ fontSize: '14px', color: '#6B5423', textAlign: 'right' }}>
+                                        — {selectedContribution.author}
+                                    </div>
+                                </RoughBox>
+                            </div>
+                        </div>
+                    )}
+                </>
+            )}
         </div>
     );
 };

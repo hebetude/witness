@@ -1,0 +1,26 @@
+{
+  "2000": [
+    {
+      "id": "ariel_sharon_visit",
+      "type": "violence",
+      "priority": "major",
+      "location": { "name": "al-Haram al-Sharif", "lat": 31.77818, "lng": 35.23599 },
+      "date": "2000-09-28",
+      "title": "Ariel Sharon visits the Temple Mount",
+      "description": "Against Palestinian warnings, Ariel Sharon visits the Temple Mount surrounded by a large police escort. Riots would follow, more than two dozen will be injured in the immediate aftermath. This event would trigger the Second Intifada.",
+      "casualties": 27
+    }
+  ],
+  "2002": [
+    {
+      "id": "separation_wall_approved",
+      "type": "policy",
+      "priority": "major",
+      "location": { "name": "West Bank", "lat": 32.308505523496116, "lng":35.02803542643785 },
+      "date": "2002-04-25",
+      "title": "A wall is approved",
+      "description": "The Israeli cabinet approves construction of a series of fences, sensors, ditches, and barriers. The Israeli army begins by constructing a 7-km fence near Tulkarm. 800 hectares of Palestinian land is confiscated.",
+      "casualties": 0
+    }
+  ]
+}
