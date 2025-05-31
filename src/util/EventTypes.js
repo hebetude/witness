@@ -1,14 +1,14 @@
 const eventTypeConfig = {
-  violence: { 
-    emoji: "💥", 
+  violence: {
+    emoji: "💥",
     color: "#8B0000",
-    // iconPath: "/icons/bombing.svg"
+    splotch: "/images/red.png"
   },
-  policy: { 
-    emoji: "📜", 
+  policy: {
+    emoji: "📜",
     color: "#1E3A8A",
-    // iconPath: "/icons/political.svg"
+    splotch: "/images/gold.png"
   }
 };
 
-export {eventTypeConfig}
+export { eventTypeConfig }

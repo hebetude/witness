@@ -135,15 +135,15 @@ const MainMap = () => {
         const currentYear = timelineData.timeline[currentYearIndex].year;
 
         visibleEvents.forEach(event => {
-            const { emoji, color } = getEventIcon(event.type);
+            const { _emoji, _color, splotch } = getEventIcon(event.type);
 
             const eventIcon = L.divIcon({
                 className: 'event-marker',
                 html: `<div class="event-icon" style="opacity: ${event.year === currentYear ? 1 : 0.6};">
-                    <span>${emoji}</span>
+                    <img src="${splotch}" alt="${event.type}" style="width: 100%; height: 100%; transform: rotate(${Math.random() * 360}deg);" />
                 </div>`,
-                iconSize: [36, 36],
-                iconAnchor: [18, 18],
+                iconSize: [50, 50],
+                iconAnchor: [25, 25],
             });
 
             const marker = L.marker([event.location.lat, event.location.lng], {

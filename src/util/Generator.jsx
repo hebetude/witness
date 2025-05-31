@@ -109,12 +109,12 @@ function generateHistoricalTimeline(startYear, endYear) {
 // Currently using emojis, but can use custom icons if I'm able
 function getEventIcon(eventType) {
   const config = eventTypeConfig[eventType];
-  if (!config) return { emoji: "❓", color: "#666666" };
+  if (!config) return { emoji: "❓", color: "#666666", splotch: "/images/blue.png" };
 
   return {
     emoji: config.emoji,
     color: config.color,
-    iconPath: config.iconPath || null
+    splotch: config.splotch || "/images/blue.png"
   };
 }
 
